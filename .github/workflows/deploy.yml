@@ -1,0 +1,33 @@
+name: Deploy to EC2
+
+on:
+  push:
+    branches:
+      - main  # Trigger on push to the main branch
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Run deploy script
+        run: |
+          sudo chmod +x install-ansible.sh
+          ./deploy.sh
+
+      - name: Upload script to EC2
+        uses: appleboy/ssh-action@v0.1.3
+        with:
+          host: ${{ secrets.EC2_HOST }}
+          username: ${{ secrets.EC2_USER }}
+          key: ${{ secrets.EC2_SSH_KEY }}
+          script: |
+            sudo chmod +x /tmp/install-ansible.sh
+            /tmp/deploy.sh
+
+      - name: Cleanup
+        run: |
+          sudo rm -f /tmp/deploy.sh
