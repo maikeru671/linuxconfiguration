@@ -1,33 +1,33 @@
-name: Deploy to EC2
-
+# Trigger deployment only on push to main branch
 on:
   push:
     branches:
-      - main  # Trigger on push to the main branch
+      - main
 
 jobs:
   deploy:
+    name: Deploy to EC2 on master branch push
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
+      - name: Checkout the files
+        uses: actions/checkout@v2
 
-      - name: Run deploy script
-        run: |
-          sudo chmod +x install-ansible.sh
-          ./install-ansible.sh
+      - name: Deploy to Server 1
+        uses: easingthemes/ssh-deploy@main
+        env:
+          SSH_PRIVATE_KEY: ${{ secrets.EC2_SSH_KEY }}
+          REMOTE_HOST: ${{ secrets.EC2_HOST }}
+          REMOTE_USER: ${{ secrets.EC2_USER }}
+          
 
-      - name: Upload script to EC2
-        uses: appleboy/ssh-action@v0.1.3
+      - name: Executing remote ssh commands using ssh key
+        uses: appleboy/ssh-action@master
         with:
           host: ${{ secrets.EC2_HOST }}
           username: ${{ secrets.EC2_USER }}
           key: ${{ secrets.EC2_SSH_KEY }}
           script: |
-            sudo chmod +x /tmp/install-ansible.sh
-            /tmp/install-ansible.sh
-
-      - name: Cleanup
-        run: |
-          sudo rm -f /tmp/install-ansible.sh
+            sudo touch ~/testfile.txt
+            sudo echo "Hello World!" > ~/testfile.txt
+            
