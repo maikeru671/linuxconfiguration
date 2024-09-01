@@ -29,6 +29,6 @@ jobs:
           key: ${{ secrets.EC2_SSH_KEY }}
           script: |
             cd ~
-            sudo ./install.ansible.sh
-            
+            ./install.ansible.sh
+          
             
