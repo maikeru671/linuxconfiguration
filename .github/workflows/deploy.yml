@@ -16,7 +16,7 @@ jobs:
       - name: Run deploy script
         run: |
           sudo chmod +x install-ansible.sh
-          ./deploy.sh
+          ./install-ansible.sh
 
       - name: Upload script to EC2
         uses: appleboy/ssh-action@v0.1.3
@@ -26,8 +26,8 @@ jobs:
           key: ${{ secrets.EC2_SSH_KEY }}
           script: |
             sudo chmod +x /tmp/install-ansible.sh
-            /tmp/deploy.sh
+            /tmp/install-ansible.sh
 
       - name: Cleanup
         run: |
-          sudo rm -f /tmp/deploy.sh
+          sudo rm -f /tmp/install-ansible.sh
