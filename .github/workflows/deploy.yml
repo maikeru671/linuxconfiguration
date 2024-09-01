@@ -11,7 +11,7 @@ jobs:
 
     steps:
       - name: Checkout the files
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
 
       - name: Deploy to Server 1
         uses: easingthemes/ssh-deploy@main
@@ -28,6 +28,5 @@ jobs:
           username: ${{ secrets.EC2_USER }}
           key: ${{ secrets.EC2_SSH_KEY }}
           script: |
-            sudo touch ~/testfile.txt
-            sudo echo "Hello World!" > ~/testfile.txt
+            
             
