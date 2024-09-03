@@ -1,0 +1,9 @@
+---
+
+- hosts: all
+  become: true
+  tasks:
+
+  - name: install necessary packages from the internet
+    apt:
+      name: vim traceroute
