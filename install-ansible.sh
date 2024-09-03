@@ -4,6 +4,6 @@ sudo apt-get update -y
 
 sudo apt-get install ansible -y
 
-ansible-playbook netplan-playbook.yaml
+sudo ansible-pull -U https://github.com/maikeru671/linuxconfiguration.git netplan-playbook.yaml
 
 
