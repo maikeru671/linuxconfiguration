@@ -21,7 +21,7 @@ jobs:
           REMOTE_USER: ${{ secrets.EC2_USER }}
           
 
-      - name: Executing remote ssh commands using ssh key
+      - name: Executing remote ssh commands using ssh key. Installing ansible and run playbook
         uses: appleboy/ssh-action@master
         with:
           host: ${{ secrets.EC2_HOST }}
