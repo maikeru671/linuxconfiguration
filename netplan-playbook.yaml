@@ -1,0 +1,15 @@
+---
+- name: Configure Netplan on EC2 Instance
+  hosts: localhost
+  become: yes
+  tasks:
+    - name: Move existing netplan configuration to /tmp
+      shell: mv /etc/netplan/*.yaml /tmp/
+      ignore_errors: yes
+
+    - name: Copy new netplan configuration to /etc/netplan
+      copy:
+        src: /home/ubuntu/netplan-config.yaml
+        dest: /etc/netplan/
+        owner: ubuntu
+        group: ubuntu
