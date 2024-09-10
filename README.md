@@ -22,13 +22,13 @@ Here is a flow for how the above works ( we will assume that Ansible is not inst
 (Note: it appears that when doing a git push, it clones the github repo to the home directory of the EC2 user. So if I write any bash scripts, ansible playbooks, etc, and put them into this repo, it will get stored in the /home/ubuntu directory on the EC2 instance).
 
 3. After the ssh connection is made to the EC2 instance, the "install-ansible.sh" script in /home/ubuntu gets executed. I wrote the script and put it into this repo. This script does the following:
-   a. sudo apt update -y
-   b. sudo apt install ansible -y
-   c. Runs the ansible-pull command.
+   A. sudo apt update -y
+   B. sudo apt install ansible -y
+   C. Runs the ansible-pull command.
 
 4. The ansible-pull command executes the ansible playbook from my github repo. The playbook does the following:
-   a. Moves the existing netplan config file from /etc/netplan to /tmp.
-   b. Moves the desired netplan from /home/ubuntu to /etc/netplan.
+   A. Moves the existing netplan config file from /etc/netplan to /tmp.
+   B. Moves the desired netplan from /home/ubuntu to /etc/netplan.
 
 
 
